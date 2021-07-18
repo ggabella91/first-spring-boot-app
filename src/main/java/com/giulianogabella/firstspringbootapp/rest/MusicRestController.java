@@ -1,28 +1,26 @@
 package com.giulianogabella.firstspringbootapp.rest;
 
+import com.giulianogabella.firstspringbootapp.entity.Album;
 import com.giulianogabella.firstspringbootapp.entity.Artist;
 import com.giulianogabella.firstspringbootapp.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class ArtistRestController {
+public class MusicRestController {
 
     private ArtistService artistService;
 
     @Autowired
-    public ArtistRestController(ArtistService theArtistService) {
+    public MusicRestController(ArtistService theArtistService) {
         artistService = theArtistService;
     }
 
     @GetMapping("/artists")
-    public List<Artist> findAll() {
+    public List<Artist> findAllArtists() {
         return artistService.findAll();
     }
 
@@ -37,16 +35,23 @@ public class ArtistRestController {
 
         return theArtist;
     }
+
+    @GetMapping("/albums")
+    public List<Album> findAllAlbums() {
+//        return albumService.findAll();
+        return null;
+    }
+
+    @PostMapping("/artists")
+    public Artist addArtist(@RequestBody Artist theArtist) {
+
+        // In case user passes an id in JSON ... set id to 0
+        // this is to force a save of new item ... instead of update
+
+        theArtist.setId(0);
+
+        artistService.save(theArtist);
+
+        return theArtist;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

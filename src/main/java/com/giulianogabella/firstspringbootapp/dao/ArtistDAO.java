@@ -14,4 +14,3 @@ public interface ArtistDAO {
 
     public void deleteById(int theId);
 }
-
