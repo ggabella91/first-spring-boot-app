@@ -1,52 +1,50 @@
 package com.giulianogabella.firstspringbootapp.dao;
 
-import com.giulianogabella.firstspringbootapp.entity.Artist;
+import com.giulianogabella.firstspringbootapp.entity.Song;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@Repository
-public class ArtistDAOImpl implements ArtistDAO {
+public class SongDAOImpl implements SongDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public ArtistDAOImpl(EntityManager theEntityManager) {
+    public SongDAOImpl(EntityManager theEntityManager) {
         entityManager = theEntityManager;
     }
 
     @Override
-    public List<Artist> findAll() {
+    public List<Song> findAll() {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Query<Artist> theQuery = currentSession.createQuery("from Artist", Artist.class);
+        Query<Song> theQuery = currentSession.createQuery("from Song", Song.class);
 
-        List<Artist> artists = theQuery.getResultList();
+        List<Song> songs = theQuery.getResultList();
 
-        return artists;
+        return songs;
     }
 
     @Override
-    public Artist findById(int theId) {
+    public Song findById(int theId) {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Artist theArtist = currentSession.get(Artist.class, theId);
+        Song theSong = currentSession.get(Song.class, theId);
 
-        return theArtist;
+        return theSong;
     }
 
     @Override
-    public void save(Artist theArtist) {
+    public void save(Song theSong) {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        currentSession.saveOrUpdate(theArtist);
+        currentSession.saveOrUpdate(theSong);
     }
 
     @Override
@@ -54,8 +52,8 @@ public class ArtistDAOImpl implements ArtistDAO {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Query<Artist> theQuery = currentSession.createQuery("delete from Artist where id=:artistId");
-        theQuery.setParameter("artistId", theId);
+        Query<Song> theQuery = currentSession.createQuery("delete from Song where id=:songId");
+        theQuery.setParameter("songId", theId);
 
         theQuery.executeUpdate();
     }

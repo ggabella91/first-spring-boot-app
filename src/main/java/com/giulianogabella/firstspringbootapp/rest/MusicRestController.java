@@ -2,7 +2,10 @@ package com.giulianogabella.firstspringbootapp.rest;
 
 import com.giulianogabella.firstspringbootapp.entity.Album;
 import com.giulianogabella.firstspringbootapp.entity.Artist;
+import com.giulianogabella.firstspringbootapp.entity.Song;
+import com.giulianogabella.firstspringbootapp.service.AlbumService;
 import com.giulianogabella.firstspringbootapp.service.ArtistService;
+import com.giulianogabella.firstspringbootapp.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,8 @@ import java.util.List;
 public class MusicRestController {
 
     private ArtistService artistService;
+    private AlbumService albumService;
+    private SongService songService;
 
     @Autowired
     public MusicRestController(ArtistService theArtistService) {
@@ -38,8 +43,36 @@ public class MusicRestController {
 
     @GetMapping("/albums")
     public List<Album> findAllAlbums() {
-//        return albumService.findAll();
-        return null;
+        return albumService.findAll();
+    }
+
+    @GetMapping("/albums/{albumId}")
+    public Album getAlbum(@PathVariable int albumId) {
+
+        Album theAlbum = albumService.findById(albumId);
+
+        if (theAlbum == null) {
+            throw new RuntimeException("Album id is not found - " + albumId);
+        }
+
+        return theAlbum;
+    }
+
+    @GetMapping("/songs")
+    public List<Song> findAllSongs() {
+        return songService.findAll();
+    }
+
+    @GetMapping("/songs/{songId}")
+    public Song getSong(@PathVariable int songId) {
+
+        Song theSong = songService.findById(songId);
+
+        if (theSong == null) {
+            throw new RuntimeException("Song id is not found - " + songId);
+        }
+
+        return theSong;
     }
 
     @PostMapping("/artists")
@@ -53,5 +86,31 @@ public class MusicRestController {
         artistService.save(theArtist);
 
         return theArtist;
+    }
+
+    @PostMapping("/albums")
+    public Album addAlbum(@RequestBody Album theAlbum) {
+
+        // In case user passes an id in JSON ... set id to 0
+        // this is to force a save of new item ... instead of update
+
+        theAlbum.setId(0);
+
+        albumService.save(theAlbum);
+
+        return theAlbum;
+    }
+
+    @PostMapping("/songs")
+    public Song addSong(@RequestBody Song theSong) {
+
+        // In case user passes an id in JSON ... set id to 0
+        // this is to force a save of new item ... instead of update
+
+        theSong.setId(0);
+
+        songService.save(theSong);
+
+        return theSong;
     }
 }

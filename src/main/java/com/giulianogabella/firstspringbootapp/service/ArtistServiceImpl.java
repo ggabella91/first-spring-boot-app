@@ -32,8 +32,8 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     @Transactional
-    public void save(Artist thArtist) {
-        artistDAO.save(thArtist);
+    public void save(Artist theArtist) {
+        artistDAO.save(theArtist);
     }
 
     @Override
