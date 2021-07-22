@@ -7,12 +7,13 @@ import com.giulianogabella.firstspringbootapp.service.AlbumService;
 import com.giulianogabella.firstspringbootapp.service.ArtistService;
 import com.giulianogabella.firstspringbootapp.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/music")
 public class MusicRestController {
 
     private ArtistService artistService;
@@ -25,8 +26,12 @@ public class MusicRestController {
     }
 
     @GetMapping("/artists")
-    public List<Artist> findAllArtists() {
-        return artistService.findAll();
+    public String findAllArtists(Model theModel) {
+        List<Artist> theArtists = artistService.findAll();
+
+        theModel.addAttribute("artists", theArtists);
+
+        return "music/artists";
     }
 
     @GetMapping("/artists/{artistId}")
