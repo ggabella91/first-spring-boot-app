@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/music")
+@RequestMapping("/api")
 public class MusicRestController {
 
     private ArtistService artistService;
@@ -26,12 +26,9 @@ public class MusicRestController {
     }
 
     @GetMapping("/artists")
-    public String findAllArtists(Model theModel) {
-        List<Artist> theArtists = artistService.findAll();
+    public List<Artist> findAllArtists(Model theModel) {
 
-        theModel.addAttribute("artists", theArtists);
-
-        return "music/artists";
+        return artistService.findAll();
     }
 
     @GetMapping("/artists/{artistId}")
