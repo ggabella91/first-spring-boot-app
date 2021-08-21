@@ -17,6 +17,10 @@ public class Album {
     @Column
     private String name;
 
+    public Album() {
+
+    }
+
     public Album(int theArtistId, String name) {
         artistId = theArtistId;
         this.name = name;

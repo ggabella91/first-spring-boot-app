@@ -17,6 +17,10 @@ public class Song {
     @Column
     private String name;
 
+    public Song() {
+
+    }
+
     public Song(int albumId, String name) {
         this.albumId = albumId;
         this.name = name;

@@ -3,10 +3,12 @@ package com.giulianogabella.firstspringbootapp.service;
 import com.giulianogabella.firstspringbootapp.dao.AlbumDAO;
 import com.giulianogabella.firstspringbootapp.entity.Album;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class AlbumServiceImpl implements AlbumService {
 
     private AlbumDAO albumDAO;
@@ -38,5 +40,11 @@ public class AlbumServiceImpl implements AlbumService {
     @Transactional
     public void deleteById(int theId) {
         albumDAO.deleteById(theId);
+    }
+
+    @Override
+    @Transactional
+    public List<Album> findAllByArtistId(int artistId) {
+       return albumDAO.findAllByArtistId(artistId);
     }
 }

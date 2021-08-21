@@ -21,8 +21,10 @@ public class MusicRestController {
     private SongService songService;
 
     @Autowired
-    public MusicRestController(ArtistService theArtistService) {
+    public MusicRestController(ArtistService theArtistService, AlbumService theAlbumService, SongService theSongService) {
         artistService = theArtistService;
+        albumService = theAlbumService;
+        songService = theSongService;
     }
 
     @GetMapping("/artists")
@@ -58,6 +60,17 @@ public class MusicRestController {
         }
 
         return theAlbum;
+    }
+
+    @GetMapping("/albums/artist/{artistId}")
+    public List<Album> findAllAlbumsByArtist(@PathVariable int artistId) {
+        List<Album> albumsByArtist = albumService.findAllByArtistId(artistId);
+
+        if (albumsByArtist == null) {
+            throw new RuntimeException("Albums by artist with id" + artistId + "were not found");
+        }
+
+        return albumsByArtist;
     }
 
     @GetMapping("/songs")

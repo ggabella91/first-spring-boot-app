@@ -4,11 +4,13 @@ import com.giulianogabella.firstspringbootapp.entity.Album;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class AlbumDAOImpl implements AlbumDAO{
+@Repository
+public class AlbumDAOImpl implements AlbumDAO {
 
     private EntityManager entityManager;
 
@@ -57,4 +59,18 @@ public class AlbumDAOImpl implements AlbumDAO{
 
         theQuery.executeUpdate();
     }
+
+    @Override
+    public List<Album> findAllByArtistId(int artistId) {
+
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Album> theQuery = currentSession.createQuery("from Album where artist_id=:artistId");
+        theQuery.setParameter("artistId", artistId);
+
+        List<Album> albumsByArtist = theQuery.getResultList();
+
+        return albumsByArtist;
+    }
+
 }
