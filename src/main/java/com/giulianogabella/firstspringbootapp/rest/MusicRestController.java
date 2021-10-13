@@ -67,7 +67,7 @@ public class MusicRestController {
         List<Album> albumsByArtist = albumService.findAllByArtistId(artistId);
 
         if (albumsByArtist == null) {
-            throw new RuntimeException("Albums by artist with id" + artistId + "were not found");
+            throw new RuntimeException("Albums by artist with id " + artistId + " were not found");
         }
 
         return albumsByArtist;
@@ -88,6 +88,17 @@ public class MusicRestController {
         }
 
         return theSong;
+    }
+
+    @GetMapping("/songs/artist/{artistId}")
+    public List<Song> findAllSongsByArtist(@PathVariable int artistId) {
+        List<Song> songsByArtist = songService.findAllByArtistId(artistId);
+
+        if (songsByArtist == null) {
+            throw new RuntimeException("Songs by artist with id " + artistId + " were not found");
+        }
+
+        return songsByArtist;
     }
 
     @PostMapping("/artists")

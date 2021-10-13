@@ -59,4 +59,17 @@ public class SongDAOImpl implements SongDAO {
 
         theQuery.executeUpdate();
     }
+
+    @Override
+    public List<Song> findAllByArtistId(int artistId) {
+
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Song> theQuery = currentSession.createQuery("from Song where artist_id=:artistId");
+        theQuery.setParameter("artistId", artistId);
+
+        List<Song> songsByArtist = theQuery.getResultList();
+
+        return songsByArtist;
+    }
 }

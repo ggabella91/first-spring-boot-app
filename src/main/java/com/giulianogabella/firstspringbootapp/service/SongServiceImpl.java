@@ -41,4 +41,10 @@ public class SongServiceImpl implements SongService {
     public void deleteById(int theId) {
         songDAO.deleteById(theId);
     }
+
+    @Override
+    @Transactional
+    public List<Song> findAllByArtistId(int artistId) {
+        return songDAO.findAllByArtistId(artistId);
+    }
 }

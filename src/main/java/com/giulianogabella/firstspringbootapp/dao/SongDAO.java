@@ -14,4 +14,6 @@ public interface SongDAO {
     public void save(Song theSong);
 
     public void deleteById(int theId);
+
+    List<Song> findAllByArtistId(int artistId);
 }

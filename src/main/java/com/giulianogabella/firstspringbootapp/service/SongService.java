@@ -13,4 +13,6 @@ public interface SongService {
     public void save(Song theSong);
 
     public void deleteById(int theId);
+
+    public List<Song> findAllByArtistId(int artistId);
 }
