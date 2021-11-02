@@ -15,4 +15,6 @@ public interface SongService {
     public void deleteById(int theId);
 
     public List<Song> findAllByArtistId(int artistId);
+
+    public List<Song> findAllByAlbumId(int albumId);
 }

@@ -101,6 +101,17 @@ public class MusicRestController {
         return songsByArtist;
     }
 
+    @GetMapping("/songs/album/{albumId}")
+    public List<Song> findAllSongsByAlbum(@PathVariable int albumId) {
+        List<Song> songsInAlbum = songService.findAllByAlbumId(albumId);
+
+        if (songsInAlbum == null) {
+            throw new RuntimeException("Songs in album with id " + albumId + " were not found");
+        }
+
+        return songsInAlbum;
+    }
+
     @PostMapping("/artists")
     public Artist addArtist(@RequestBody Artist theArtist) {
 

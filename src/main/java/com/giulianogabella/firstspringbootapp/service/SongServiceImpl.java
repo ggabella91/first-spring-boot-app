@@ -47,4 +47,10 @@ public class SongServiceImpl implements SongService {
     public List<Song> findAllByArtistId(int artistId) {
         return songDAO.findAllByArtistId(artistId);
     }
+
+    @Override
+    @Transactional
+    public List<Song> findAllByAlbumId(int albumId) {
+        return songDAO.findAllByAlbumId(albumId);
+    }
 }

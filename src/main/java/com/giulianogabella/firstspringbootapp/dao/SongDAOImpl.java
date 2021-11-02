@@ -72,4 +72,17 @@ public class SongDAOImpl implements SongDAO {
 
         return songsByArtist;
     }
+
+    @Override
+    public List<Song> findAllByAlbumId(int albumId) {
+
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Song> theQuery = currentSession.createQuery("from Song where album_id=:albumId");
+        theQuery.setParameter("albumId", albumId);
+
+        List<Song> songsInAlbum = theQuery.getResultList();
+
+        return songsInAlbum;
+    }
 }
