@@ -13,4 +13,6 @@ public interface ArtistDAO {
     public void save(Artist theArtist);
 
     public void deleteById(int theId);
+
+    public Artist findByAlbumId(int albumId);
 }

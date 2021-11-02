@@ -12,6 +12,9 @@ public class Song {
     private int id;
 
     @Column
+    private int artistId;
+
+    @Column
     private int albumId;
 
     @Column
@@ -34,6 +37,14 @@ public class Song {
         this.id = id;
     }
 
+    public int getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(int artistId) {
+        this.artistId = artistId;
+    }
+
     public int getAlbumId() {
         return albumId;
     }
@@ -54,6 +65,7 @@ public class Song {
     public String toString() {
         return "Song{" +
                 "id=" + id +
+                ", artistId=" + artistId +
                 ", albumId=" + albumId +
                 ", name='" + name + '\'' +
                 '}';

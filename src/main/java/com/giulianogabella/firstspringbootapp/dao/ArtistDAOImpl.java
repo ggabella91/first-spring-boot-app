@@ -59,4 +59,17 @@ public class ArtistDAOImpl implements ArtistDAO {
 
         theQuery.executeUpdate();
     }
+
+    @Override
+    public Artist findByAlbumId(int albumId) {
+
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Artist> theQuery = currentSession.createQuery("select ar.* " +
+                                                                        "from Album al " +
+                                                                        "join Artist ar on ar.id =:albumId");
+        theQuery.setParameter("albumId", albumId);
+
+        return theQuery.getSingleResult();
+    }
 }

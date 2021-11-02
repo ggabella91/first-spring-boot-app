@@ -41,4 +41,9 @@ public class ArtistServiceImpl implements ArtistService {
     public void deleteById(int theId) {
         artistDAO.deleteById(theId);
     }
+
+    @Override
+    public Artist findByAlbumId(int albumId) {
+        return artistDAO.findByAlbumId(albumId);
+    }
 }

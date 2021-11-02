@@ -45,6 +45,18 @@ public class MusicRestController {
         return theArtist;
     }
 
+    @GetMapping("/artists/album/{albumId}")
+    public Artist getArtistByAlbum(@PathVariable int albumId) {
+
+        Artist theArtist = artistService.findByAlbumId(albumId);
+
+        if (theArtist == null) {
+            throw new RuntimeException("Album id not found - " + albumId);
+        }
+
+        return theArtist;
+    }
+
     @GetMapping("/albums")
     public List<Album> findAllAlbums() {
         return albumService.findAll();
