@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -48,7 +50,7 @@ public class MusicRestController {
     @GetMapping("/artists/name/{artistName}")
     public Artist getArtistByName(@PathVariable String artistName) {
 
-        artistName = artistName.replace(" ", "+");
+        artistName = URLDecoder.decode(artistName, StandardCharsets.UTF_8);
 
         Artist theArtist = artistService.findByName(artistName);
 

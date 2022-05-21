@@ -46,8 +46,6 @@ public class ArtistDAOImpl implements ArtistDAO {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        theName = theName.replace("+", " ");
-
         Artist theArtist = currentSession.get(Artist.class, theName);
 
         return theArtist;
