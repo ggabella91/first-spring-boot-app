@@ -45,6 +45,20 @@ public class MusicRestController {
         return theArtist;
     }
 
+    @GetMapping("/artists/name/{artistName}")
+    public Artist getArtistByName(@PathVariable String artistName) {
+
+        artistName = artistName.replace(" ", "+");
+
+        Artist theArtist = artistService.findByName(artistName);
+
+        if (theArtist == null) {
+            throw new RuntimeException(("Artist name not found " + artistName));
+        }
+
+        return theArtist;
+    }
+
     @GetMapping("/artists/album/{albumId}")
     public Artist getArtistByAlbum(@PathVariable int albumId) {
 

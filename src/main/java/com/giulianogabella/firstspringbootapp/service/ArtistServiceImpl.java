@@ -31,6 +31,11 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
+    public Artist findByName(String theName) {
+        return artistDAO.findByName(theName);
+    }
+
+    @Override
     @Transactional
     public void save(Artist theArtist) {
         artistDAO.save(theArtist);

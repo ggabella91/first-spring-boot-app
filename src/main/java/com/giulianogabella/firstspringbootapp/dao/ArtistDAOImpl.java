@@ -42,6 +42,18 @@ public class ArtistDAOImpl implements ArtistDAO {
     }
 
     @Override
+    public Artist findByName(String theName) {
+
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        theName = theName.replace("+", " ");
+
+        Artist theArtist = currentSession.get(Artist.class, theName);
+
+        return theArtist;
+    }
+
+    @Override
     public void save(Artist theArtist) {
 
         Session currentSession = entityManager.unwrap(Session.class);
@@ -66,8 +78,8 @@ public class ArtistDAOImpl implements ArtistDAO {
         Session currentSession = entityManager.unwrap(Session.class);
 
         Query<Artist> theQuery = currentSession.createQuery("select ar.* " +
-                                                                        "from Album al " +
-                                                                        "join Artist ar on ar.id =:albumId");
+                "from Album al " +
+                "join Artist ar on ar.id =:albumId");
         theQuery.setParameter("albumId", albumId);
 
         return theQuery.getSingleResult();

@@ -10,6 +10,8 @@ public interface ArtistDAO {
 
     public Artist findById(int theId);
 
+    public Artist findByName(String theName);
+
     public void save(Artist theArtist);
 
     public void deleteById(int theId);
