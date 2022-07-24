@@ -4,7 +4,9 @@ import com.giulianogabella.firstspringbootapp.entity.Artist;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -46,9 +48,15 @@ public class ArtistDAOImpl implements ArtistDAO {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Artist theArtist = currentSession.get(Artist.class, theName);
+        Query<Artist> theQuery = currentSession.createQuery("from Artist where name=:artistName");
+        theQuery.setParameter("artistName", theName);
 
-        return theArtist;
+        try {
+            Artist result = theQuery.getSingleResult();
+            return  result;
+        } catch (ResponseStatusException err) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found");
+        }
     }
 
     @Override
