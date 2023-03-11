@@ -46,7 +46,13 @@ public class SongDAOImpl implements SongDAO {
 
         Session currentSession = entityManager.unwrap(Session.class);
 
-        currentSession.saveOrUpdate(theSong);
+       try {
+            currentSession.saveOrUpdate(theSong);
+        } catch (Exception e) {
+
+           System.out.println("Exception thrown: " + e);
+
+       }
     }
 
     @Override

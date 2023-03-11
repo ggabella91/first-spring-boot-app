@@ -33,7 +33,11 @@ public class SongServiceImpl implements SongService {
     @Override
     @Transactional
     public void save(Song theSong) {
-        songDAO.save(theSong);
+        try {
+            songDAO.save(theSong);
+        } catch (Exception e) {
+            System.out.println("Exception thrown");
+        }
     }
 
     @Override
